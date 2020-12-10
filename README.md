@@ -35,6 +35,7 @@ When a solution is blocked, it is common to backtrack many times.
 
 Approach 2:
 The second approach uses backtracking:
+<pre>
 Pick a starting point.
    while (Problem is not solved)
       For each path from the starting point.
@@ -45,6 +46,5 @@ Pick a starting point.
          else 
            undo the current move and return false.
       End For
+</pre>
  If none of the move works out, return false, NO SOLUTON.
-
-xWords.js can be reused elsewhere independent of the rest of the code on the site for crossword puzzle generation.
