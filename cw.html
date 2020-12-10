@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>CW - gen crossword puzzles</title>
+
+    <link rel="stylesheet" type="text/css" href="cw.css"/>
+
+    <script type="text/javascript" src="cw.js"></script>
+    <script type="text/javascript" src="words.json"></script>
+
+</head>
+<body>
+
+  <h1>Crossword
+  <button class="gameButton" onclick="newgame();return false">
+    Reveal Puzzle
+  </button>
+  </h1>
+
+  <dl id="clues_across" class="crossword-clues__list">
+    <dt class="crossword-clues__list-title">ACROSS</dt>
+  </dl>
+		  
+  <div id="crossword-board-div" class="crossword_board"></div>
+  
+  <dl id="clues_down" class="crossword-clues__list">
+    <dt class="crossword-clues__list-title">DOWN</dt>
+  </dl>
+
+<script>
+  var CW = new Crossword();
+
+  function newgame() {
+      CW.newGame();
+      let clues = CW.getClues();
+      let across = document.getElementById("clues_across");
+      for (let i=0; i<clues.length; i++) {
+	  if (clues[i].dir != "ACROSS") {
+	      continue;
+	  }
+	  let element = document.createElement('DD');
+	  element.className = "crossword-clues__list-item";
+	  element.setAttribute("data-number", clues[i].num);
+	  element.appendChild(document.createTextNode(clues[i].clue));
+	  across.appendChild(element);
+      }
+      let down = document.getElementById("clues_down");
+      for (let i=0; i<clues.length; i++) {
+	  if (clues[i].dir != "DOWN") {
+	      continue;
+	  }
+	  let element = document.createElement('DD');
+	  element.className = "crossword-clues__list-item";
+	  element.setAttribute("data-number", clues[i].num);
+	  element.appendChild(document.createTextNode(clues[i].clue));
+	  down.appendChild(element);
+      }
+  }
+
+  newgame();
+
+</script>
+
+</body></html>

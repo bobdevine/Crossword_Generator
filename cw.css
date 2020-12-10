@@ -1,0 +1,64 @@
+
+.crossword-board {
+    background: transparent;
+    border: 1px solid #000;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    float: left;
+}
+
+.crossword-board tr {
+}
+.crossword-board td {
+    text-align: center;
+    min-width: 25px;
+    font-size: 30px;
+    border: 1px solid #000;
+    background: transparent;
+}
+
+.crossword-board td:hover {
+    background: #ffff74;
+}
+
+[contenteditable='true'] {
+    caret-color: red;
+}
+ 
+
+.crossword-clues {
+}
+.crossword-clues__list {
+    float: left;
+    width: 25%;
+    margin: 0 0 0 60px;
+    padding: 0;
+    display: inline-block;
+    vertical-align: top;
+}
+.crossword-clues__list-title {
+    font-weight: bold;
+    padding: 4px;
+}
+.crossword-clues__list-item {
+    margin: 0;
+    padding: 4px;
+}
+.crossword-clues__list-item:before {
+    content: attr(data-number) '. ';
+}
+
+span.num {
+    position: initial;
+    margin-left: 3px;
+    font-size: 16px;
+    float: left;
+    display: block;
+    color: #000;
+}
+
+span.contents {
+    position: relative;
+    top: -18px; /* must be >= the .num font-size */
+}
