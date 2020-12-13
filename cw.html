@@ -14,7 +14,7 @@
 
   <h1>Crossword
   <button class="gameButton" onclick="newgame();return false">
-    Reveal Puzzle
+    Generate Puzzle
   </button>
   </h1>
 
@@ -35,6 +35,7 @@
       CW.newGame();
       let clues = CW.getClues();
       let across = document.getElementById("clues_across");
+      across.innerHTML = "";
       for (let i=0; i<clues.length; i++) {
 	  if (clues[i].dir != "ACROSS") {
 	      continue;
@@ -46,6 +47,7 @@
 	  across.appendChild(element);
       }
       let down = document.getElementById("clues_down");
+      down.innerHTML = "";
       for (let i=0; i<clues.length; i++) {
 	  if (clues[i].dir != "DOWN") {
 	      continue;
