@@ -88,6 +88,7 @@ Crossword.prototype.getClues = function() {
 }
 
 Crossword.prototype.newGame = function() {
+    this.listAcrossDown = [];
     // create table and add blanks
     this.tableInternal = new Array(this.Rows);
     for (let i = 0; i < this.Rows; i++) {

@@ -35,28 +35,21 @@
       CW.newGame();
       let clues = CW.getClues();
       let across = document.getElementById("clues_across");
-      across.innerHTML = "";
-      for (let i=0; i<clues.length; i++) {
-	  if (clues[i].dir != "ACROSS") {
-	      continue;
-	  }
-	  let element = document.createElement('DD');
-	  element.className = "crossword-clues__list-item";
-	  element.setAttribute("data-number", clues[i].num);
-	  element.appendChild(document.createTextNode(clues[i].clue));
-	  across.appendChild(element);
-      }
+      across.innerHTML = '';
       let down = document.getElementById("clues_down");
-      down.innerHTML = "";
+      while (down.firstChild) {
+	  down.removeChild(down.firstChild);
+      }
       for (let i=0; i<clues.length; i++) {
-	  if (clues[i].dir != "DOWN") {
-	      continue;
-	  }
 	  let element = document.createElement('DD');
 	  element.className = "crossword-clues__list-item";
 	  element.setAttribute("data-number", clues[i].num);
 	  element.appendChild(document.createTextNode(clues[i].clue));
-	  down.appendChild(element);
+	  if (clues[i].dir == "ACROSS") {
+	      across.appendChild(element);
+	  } else if (clues[i].dir == "DOWN") {
+	      down.appendChild(element);
+	  }
       }
   }
 
