@@ -26,7 +26,7 @@ MIT. Use the code freely.
 Download all of the files to a single directory, then open "cw.html" in any browser that supports Javascript/ECMAscript.
 The HTML file includes its support files from the current directory.
 
-The dictionary (words.js) is a JSON file of over 70,000 English words/clues.
+The dictionary (words.js) is a JSON file of over 70,000 English words/clues organized by length of words and, for convenience, stored in sorted order.
 New clues can be easily added by using any text editor.
 
 ## Overview of the project
@@ -85,18 +85,38 @@ The second approach combined backtracking with dependencies:
 >     If none of the moves work out, return false, NO SOLUTON.
 
     Backtracking improved the success rate to about 70%, but the complexity level grew very quickly.
-Complexity of backtracking : O(N * M * P^D)
+Complexity of backtracking : 
+>     O(N * M * P^D)
 >     where:
 >     N is the number of words to be filled in the grid,
 >     M is the average length of a word,
 >     P is the lists of possible word to be tested for the crossword
 >       constraint,
 >     D = intersection point(s) between horizontal and vertical words.
+>
+>     For a sample board,
+>     N is 30
+>     M is 5
+>     P is 200
+>     D is 2.5
 
  * **Version 3**:
-Instead of backtracking, this version attempts to fix words that failed.
+Instead of backtracking, this version uses three heuristics.
+
+    First, words are tried in reverse order of their length.
+The longest (and presumably hardest to match) words are placed in the board
+before the shortest (presumably lower constraints).
+
+    Second, word placement is alternated between the *across* and *down* directions. This alternating pattern improved the overall success rate.
+
+    Third, words are pre-filtered by intersections. Only words that can link with their intersecting words are tried.
+
+    The success rate was improved while the generation of a complete board is very fast.
+
+ * **Version Future?**:
+This version attempts to fix words that failed.
 Each failed word looks at intersecting words to find pairs that fit.
-The success rate was improved while the generation remained very fast.
+This is a very specific method to backtrack.
 
  * **Version Future?**:
 Instead of filling in a complete word and then trying to fit crossing words, this approach tries to fill in single letters by negotiating between the crossing words.
