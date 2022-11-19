@@ -23,37 +23,33 @@ MIT. Use the code freely.
 - Quick and easy to use
 
 ## Getting Started
-Download all of the files and open "index.html" in any browser that supports Javascript/ECMAscript.
+Download all of the files to a single directory, then open "cw.html" in any browser that supports Javascript/ECMAscript.
 The HTML file includes its support files from the current directory.
 
 The dictionary (words.js) is a JSON file of over 70,000 English words/clues.
 New clues can be easily added by using any text editor.
-Other languages can be used instead.
 
 ## Overview of the project
 
 This project generates crossword puzzles, not solves them.
-The board for the puzzle is randomly selected from board patterns.
+The board for the puzzle is randomly selected from internal board patterns.
 More board patterns can be added easily to the program.
+The program attempts to completely fill in the crossword board with words from the dictionary file.
 
 In particular, this project generates **dense** puzzles, like the puzzles often seen in newspapers.
-Dense puzzles are much harder to generate than sparse puzzles because the adjacent words greatly expand the search space.
-
-In general, the crossword construction problem is NP-complete.
-Assuming for each entry there are 1,000 possible words in the database and only 50 can be used.
-To generate a puzzle with 30 words, a brute force solution needs 50 ^ (30-1) iterations.
-
-Heuristics can be used to generate a puzzle efficiently for small board sizes and large dictionaries.
-The current code has a few heuristics.
-Future version will add more.
-
-The computational complexity for dense puzzles is proably higher than chess, because the number of choices for word placement is much higher than the number of legal chess moves.
-> [any theorist want to do a proof of this complexity supposition?]
+Dense puzzles are much harder to generate than sparse puzzles because the adjacent words greatly expand the search space and increase constraints.
 
 Crosswords are a type of constraint satisfaction problem.
-The program attempts to completely fill in the crossword board.
-The code uses backtracking when searching through all possible moves.
-Backtracking solves problems recursively by trying to build a solution incrementally, one word at a time, by removing those solutions that fail to satisfy the constraints.
+In general, crossword construction is NP-complete.
+For example, assuming for each entry there are 1,000 possible words of the right length in the database but only 50 match the constraints.
+Then to generate a puzzle with 30 words, a brute force solution needs 50 ^ (30-1) iterations.
+
+Heuristics can be used to generate a puzzle more efficiently for small board sizes and large dictionaries.
+The current code has a few heuristics.
+Future version will add more. (TBD)
+
+NOTE: The computational complexity for dense puzzles is proably higher than chess, because the number of choices for word placement is much higher than the number of legal chess moves.
+> [any theorist want to do a proof of this complexity supposition?]
 
 Generating a dense puzzle is computationally very challenging.
 The current version generates a complete puzzle in less than a fraction of a second.
@@ -72,7 +68,9 @@ because the code could get into an endless loop of trying.
 Overall success was over 80%.
 
  * **Version 2**:
-The second approach uses backtracking with dependencies:
+The version used backtracking when searching through all possible moves.
+Backtracking solves problems recursively by trying to build a solution incrementally, one word at a time, by removing those solutions that fail to satisfy the constraints.
+The second approach combined backtracking with dependencies:
 >     Pick a starting word.
 >     while (Puzzle is not finished)
 >      For each path from the starting word.
@@ -85,7 +83,7 @@ The second approach uses backtracking with dependencies:
 >      End For
 >     If none of the moves work out, return false, NO SOLUTON.
 
-    Backtracking improved the success rate to about 90%, but the complexity level grew very quickly.
+    Backtracking improved the success rate to about 80%, but the complexity level grew very quickly.
 Time Complexity of our Backtracking approach: O((M * P)^D)
 >     where:
 >     N is the number of continous row/columns of empty cell
