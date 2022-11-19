@@ -13,7 +13,7 @@ To use, simply open cw.html in a modern browser, which brings in all other files
 ![filled crossword](filled_crossword.png)
 
 ## License
-None. Use the code freely.
+MIT. Use the code freely.
 
 ## Staus - version 0.0.1
 - Full-sized dense crossword puzzles
