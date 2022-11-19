@@ -69,27 +69,27 @@ Overall success was over 80%.
 
  * **Version 2**:
 The second approach uses backtracking with dependencies:
-    <pre>
-Pick a starting word.
-   while (Puzzle is not finished)
-      For each path from the starting word.
-         check if selected path is safe, if yes select it
-         and make recursive call to rest of the puzzle
-         If recursive calls returns true,
-           then return true.
-         else
-           undo the current move and return false.
-      End For
-  If none of the moves work out, return false, NO SOLUTON.
-</pre>
-Backtracking improved the success rate to about 90%, but the complexity level grew very quickly.
-Time Complexity of our Backtracking approach: O((M * P)^D)<pre>
-where:
-  N is the number of continous row/columns of empty cell (word to be filled) in the grid,
-  M is the average length of a word,
-  P is the lists of possible word to be tested for the crossword constraint,
-  D = intersection point(s) between the horizontal and vertical words.
-</pre>
+>     Pick a starting word.
+>     while (Puzzle is not finished)
+>      For each path from the starting word.
+>         check if selected path is safe, if yes select it
+>         and make recursive call to rest of the puzzle
+>         If recursive calls returns true,
+>           then return true.
+>         else
+>           undo the current move and return false.
+>      End For
+>     If none of the moves work out, return false, NO SOLUTON.
+
+    Backtracking improved the success rate to about 90%, but the complexity level grew very quickly.
+Time Complexity of our Backtracking approach: O((M * P)^D)
+>     where:
+>     N is the number of continous row/columns of empty cell
+>       (word to be filled) in the grid,
+>     M is the average length of a word,
+>     P is the lists of possible word to be tested for the crossword
+>       constraint,
+>     D = intersection point(s) between horizontal and vertical words.
 
  * **Version 3**:
 Instead of backtracking, this version attempts to fix words that failed.
