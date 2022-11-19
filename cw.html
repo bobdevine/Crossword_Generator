@@ -2,59 +2,86 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>CW - gen crossword puzzles</title>
+    <title>Crossword Generator</title>
 
+    <link rel="icon" type="image/png" href="./xword.png">
     <link rel="stylesheet" type="text/css" href="cw.css"/>
 
+    <script type="text/javascript" src="patterns.js"></script>
+    <script type="text/javascript" src="words.js"></script>
     <script type="text/javascript" src="cw.js"></script>
-    <script type="text/javascript" src="words.json"></script>
-
-</head>
-<body>
-
-  <h1>Crossword
-  <button class="gameButton" onclick="newgame();return false">
-    Generate Puzzle
-  </button>
-  </h1>
-
-  <dl id="clues_across" class="crossword-clues__list">
-    <dt class="crossword-clues__list-title">ACROSS</dt>
-  </dl>
-		  
-  <div id="crossword-board-div" class="crossword_board"></div>
+  </head>
   
-  <dl id="clues_down" class="crossword-clues__list">
-    <dt class="crossword-clues__list-title">DOWN</dt>
-  </dl>
+<body>
+  <div id="crossword-board-div" class="crossword_board"></div>
+  <dl id="clues_across" class="crossword-clues__list"></dl>		  
+  <dl id="clues_down" class="crossword-clues__list"></dl>
 
-<script>
-  var CW = new Crossword();
+  <br clear="both"/>
+  <p style="margin-top:35px;"></p>
+  <button id="newGameButton" onclick="newgame(); return false">
+    Generate New Crossword Puzzle
+  </button>
 
-  function newgame() {
-      CW.newGame();
-      let clues = CW.getClues();
-      let across = document.getElementById("clues_across");
-      across.innerHTML = '';
-      let down = document.getElementById("clues_down");
-      while (down.firstChild) {
-	  down.removeChild(down.firstChild);
-      }
-      for (let i=0; i<clues.length; i++) {
-	  let element = document.createElement('DD');
-	  element.className = "crossword-clues__list-item";
-	  element.setAttribute("data-number", clues[i].num);
-	  element.appendChild(document.createTextNode(clues[i].clue));
-	  if (clues[i].dir == "ACROSS") {
-	      across.appendChild(element);
-	  } else if (clues[i].dir == "DOWN") {
-	      down.appendChild(element);
-	  }
-      }
-  }
+  <script>
+    // are global variables (not defined) OR (defined AND unitialized)
+    if (typeof BOARD_PATTERNS == 'undefined') {
+	alert("error with patterns.js");
+    }
+    if (typeof WORDS == 'undefined') {
+	alert("error with words.js");
+    }
+    if (typeof Crossword == 'undefined') {
+	alert("error with cw.js");
+    }
+    var CW = new Crossword();
+    
+    function newgame() {
+	CW.newGame();
 
-  newgame();
+	var table = document.createElement("TABLE");
+	table.className = "crossword-board";
+	for (let i = 0; i <CW.Rows; i++) {
+            let row = table.insertRow(-1);
+            for (let c = 0; c < CW.Columns; c++) {
+		let cell = row.insertCell(-1);
+		if (!CW.tableInternal[i][c].blank) {
+		    if (CW.tableInternal[i][c].num > 0) {
+			cell.innerHTML = '<span class="num">' + CW.tableInternal[i][c].num + '</span><br><span class="contents">' + CW.tableInternal[i][c].letter + '</span>';
+		    } else {
+			cell.innerHTML = CW.tableInternal[i][c].letter;
+		    }
+		} else {
+		    cell.contentEditable = "false";
+		    cell.style.background = "black";
+		}
+            }
+	}
 
-</script>
+	var dvTable = document.getElementById("crossword-board-div");
+	dvTable.innerHTML = "";
+	dvTable.appendChild(table);
+
+	let clues = CW.getClues();
+	let across = document.getElementById("clues_across");
+	let down = document.getElementById("clues_down");
+	across.innerHTML = '<dt class="crossword-clues__list-title">ACROSS</dt>';
+	down.innerHTML = '<dt class="crossword-clues__list-title">DOWN</dt>';
+	
+	for (let i=0; i<clues.length; i++) {
+	    let element = document.createElement('DD');
+	    element.className = "crossword-clues__list-item";
+	    element.setAttribute("data-number", clues[i].num);
+	    element.appendChild(document.createTextNode(clues[i].clue));
+	    if (clues[i].dir == "ACROSS") {
+		across.appendChild(element);
+	    } else if (clues[i].dir == "DOWN") {
+		down.appendChild(element);
+	    }
+	}
+    }
+    
+    newgame();
+  </script>
 
 </body></html>
