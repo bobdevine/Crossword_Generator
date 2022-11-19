@@ -32,17 +32,23 @@ Other languages can be used instead.
 
 ## Overview of the project
 
-This project generates crossword puzzles, not solve them.
+This project generates crossword puzzles, not solves them.
 The board for the puzzle is randomly selected from board patterns.
-More framesboards can be added easily.
+More board patterns can be added easily to the program.
 
-This project generates **dense** puzzles, like the puzzles often seen in newspapers.
-Dense puzzles are much harder to generate than sparse puzzles because words are adjacent.
+In particular, this project generates **dense** puzzles, like the puzzles often seen in newspapers.
+Dense puzzles are much harder to generate than sparse puzzles because the adjacent words greatly expand the search space.
+
 In general, the crossword construction problem is NP-complete.
-The computational complexity for dense puzzles is proably higher than chess, too, because the number of choices for word placement is much higher than the number of legal chess moves. 
 Assuming for each entry there are 1,000 possible words in the database and only 50 can be used.
-Then in order to fill 30 words, we need to perform 50 ^ (30-1) iterations.
-> any theorist want to do a proof of this complexity supposition?
+To generate a puzzle with 30 words, a brute force solution needs 50 ^ (30-1) iterations.
+
+Heuristics can be used to generate a puzzle efficiently for small board sizes and large dictionaries.
+The current code has a few heuristics.
+Future version will add more.
+
+The computational complexity for dense puzzles is proably higher than chess, because the number of choices for word placement is much higher than the number of legal chess moves.
+> [any theorist want to do a proof of this complexity supposition?]
 
 Crosswords are a type of constraint satisfaction problem.
 The program attempts to completely fill in the crossword board.
@@ -50,10 +56,8 @@ The code uses backtracking when searching through all possible moves.
 Backtracking solves problems recursively by trying to build a solution incrementally, one word at a time, by removing those solutions that fail to satisfy the constraints.
 
 Generating a dense puzzle is computationally very challenging.
-The current version generates a complete puzzle in less than a second.
-If no word fits into a space, the clue lists the internal index number and the length of the space, eg "[LEN 3]".
-
-Although the crossword construction problem is NP-complete, heuristics can be used to solve the problem efficiently for small grid sizes and large dictionaries. 
+The current version generates a complete puzzle in less than a fraction of a second.
+If no word fits into a space, the clue just lists the length of the space, eg "[LEN 3]".
 
 ## Architecture generations
 
