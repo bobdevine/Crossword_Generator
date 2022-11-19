@@ -49,23 +49,24 @@ The current code has a few heuristics.
 Future version will add more. (TBD)
 
 NOTE: The computational complexity for dense puzzles is proably higher than chess, because the number of choices for word placement is much higher than the number of legal chess moves.
-> [any theorist want to do a proof of this complexity supposition?]
+
+*(Any theorist want to do a proof of this complexity supposition?)*
 
 Generating a dense puzzle is computationally very challenging.
 The current version generates a complete puzzle in less than a fraction of a second.
-If no word fits into a space, the clue just lists the length of the space, eg "[LEN 3]".
+If no word fits into a space, the clue just lists the length of the space, eg. "[LEN 3]".
 
-## Architecture generations
+## Project versions
 
   * **Version 1**:
 The first approach used Brute Force and randomness to place words.
-This naive approach tries all combinations of filling in the grid with words from the dictionary.
+This naive approach tries all combinations to fill in the grid with words from the dictionary.
 Unfortunately, while this is computationally efficient, not all puzzles can be solved.
 When a solution is blocked, it is common to backtrack repeatedly, sometimes endlessly.
 
     While approach #1 mostly succeeded, its failures were very costly
 because the code could get into an endless loop of trying.
-Overall success was over 80%.
+Overall success was about 50%.
 
  * **Version 2**:
 The version used backtracking when searching through all possible moves.
@@ -83,11 +84,10 @@ The second approach combined backtracking with dependencies:
 >      End For
 >     If none of the moves work out, return false, NO SOLUTON.
 
-    Backtracking improved the success rate to about 80%, but the complexity level grew very quickly.
-Time Complexity of our Backtracking approach: O((M * P)^D)
+    Backtracking improved the success rate to about 70%, but the complexity level grew very quickly.
+Complexity of backtracking : O(N * M * P^D)
 >     where:
->     N is the number of continous row/columns of empty cell
->       (word to be filled) in the grid,
+>     N is the number of words to be filled in the grid,
 >     M is the average length of a word,
 >     P is the lists of possible word to be tested for the crossword
 >       constraint,
